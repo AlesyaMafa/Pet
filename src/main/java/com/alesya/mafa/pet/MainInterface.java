@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class MainInterface implements IMainInterface {
 
     private final static String INCORRECT_VALUE = "Incorrect value, try again";
-    private final static String INPUT_PET = "Input type of pet: cat, dog or horse";
-    private final static String INPUT_APP = "Type 'add' to add new pet\nType 'update' to update existing pet\nType 'delete' to delete existing pet\nType 'list' to view all pets\nType 'exit' to stop app";
+    private final static String INPUT_PET = "Input type of pet: cat, dog, horse or rabbit";
+    private final static String INPUT_APP = "Type 'add' to add new pet\nType 'update' to update existing pet\nType 'delete' to delete existing pet\nType 'list' to view all pets\nType 'search' to find pet\nType 'exit' to stop app";
     private final static String UPDATE_PET = "To update pet type ID\nIf you don't remember ID, type list";
     private final static String DELETE_PET = "To delete pet type ID\nIf you don't remember ID, type list";
     private final static String DELETE_PET_BY_ID = "To delete pet type ID";
     private final static String UPDATE_PET_BY_ID = "To update pet type ID";
+    private final static String SEARCH_PET_BY_NAME = "To search pet type name";
 
     private IOperationInterface operationInterface = new OperationInterface();
     private Scanner scanner = new Scanner(System.in);
@@ -37,6 +38,9 @@ public class MainInterface implements IMainInterface {
                 case "delete":
                     delete();
                     break;
+                case "search":
+                    search();
+                    break;
                 default:
                     System.out.println(INCORRECT_VALUE);
             }
@@ -56,6 +60,9 @@ public class MainInterface implements IMainInterface {
                     return;
                 case "horse":
                     operationInterface.addHorse();
+                    return;
+                case "rabbit":
+                    operationInterface.addRabbit();
                     return;
                 default:
                     System.out.println(INCORRECT_VALUE);
@@ -91,5 +98,10 @@ public class MainInterface implements IMainInterface {
                 System.out.println(INCORRECT_VALUE);
             } else return;
         }
+    }
+
+    private void search() {
+        System.out.println(SEARCH_PET_BY_NAME);
+        operationInterface.search(scanner.nextLine().trim());
     }
 }

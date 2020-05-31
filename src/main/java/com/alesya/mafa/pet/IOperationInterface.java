@@ -12,6 +12,8 @@ public interface IOperationInterface {
 
     public void addHorse();
 
+    public void addRabbit();
+
     public void listPet();
 
     public String updatePet(String updatedId);
@@ -19,5 +21,7 @@ public interface IOperationInterface {
     public String deletePet(String deletedId);
 
     public void setScanner(Scanner scanner);
+
+    public void search(String name);
 
 }
