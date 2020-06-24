@@ -1,18 +1,17 @@
 package com.alesya.mafa.pet;
 
+import java.util.Objects;
 import java.util.UUID;
 
-public class Pet {
+public class Pet implements Comparable{
 
     private String name;
-    private String breed;
     private byte age;
     private String color;
     private UUID petId;
 
-    public Pet(UUID petId, String name, String breed, byte age, String color){
+    public Pet(UUID petId, String name, byte age, String color) {
         this.name = name;
-        this.breed = breed;
         this.age = age;
         this.color = color;
         this.petId = petId;
@@ -27,14 +26,6 @@ public class Pet {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getBreed() {
-        return this.breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
     }
 
     public byte getAge() {
@@ -63,6 +54,36 @@ public class Pet {
 
     @Override
     public String toString() {
-        return String.format(getPetId() + ", " + getName() + ", " + getBreed() + ", " + String.valueOf(getAge()) + ", " +  getColor());
+        return "Pet{" +
+                "petId=" + petId + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age + '\'' +
+                ", color='" + color +
+                '}';
     }
- }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pet pet = (Pet) o;
+        return age == pet.age &&
+                name.equals(pet.name) &&
+                color.equals(pet.color) &&
+                petId.equals(pet.petId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, color, petId);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
+}

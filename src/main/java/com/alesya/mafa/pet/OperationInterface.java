@@ -1,18 +1,18 @@
 package com.alesya.mafa.pet;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class OperationInterface implements IOperationInterface {
 
     private final static String NAME = "Input name: ";
     private final static String BREED = "Input breed: ";
+    private final static String CAT_BREED = "Input breed " + Arrays.toString(Cat.Breed.values()) + ": ";
     private final static String AGE = "Input age: ";
     private final static String COLOR = "Input color: ";
     private final static String HAIR = "Input hair: ";
     private final static String HORSESHOE = "Input horseshoe: ";
     private final static String TAIL = "Input tail: ";
+    private final static String TYPE_OF_EARS = "Input type of ears: ";
 
     private ArrayList<Pet> storage = new ArrayList<>();
     private Scanner scanner;
@@ -22,8 +22,6 @@ public class OperationInterface implements IOperationInterface {
         Pet pet = new Pet();
         System.out.println(NAME);
         pet.setName(scanner.nextLine());
-        System.out.println(BREED);
-        pet.setBreed(scanner.nextLine());
         System.out.println(AGE);
         pet.setAge(Byte.parseByte(scanner.nextLine()));
         System.out.println(COLOR);
@@ -48,8 +46,14 @@ public class OperationInterface implements IOperationInterface {
     }
 
     @Override
+    public void addRabbit() {
+        storage.add(createRabbit());
+    }
+
+    @Override
     public void listPet() {
-        for (Pet object: storage) {
+        list(storage);
+        for (Pet object : storage) {
             System.out.println(object);
         }
     }
@@ -59,20 +63,25 @@ public class OperationInterface implements IOperationInterface {
         for (int i = 0; i < storage.size(); i++) {
             if (String.valueOf(storage.get(i).getPetId()).equals(updatedId)) {
                 Pet pet = storage.get(i);
-                if(pet instanceof Cat) {
+                if (pet instanceof Cat) {
                     Cat cat = createCat();
                     cat.setPetId(pet.getPetId());
                     storage.set(i, cat);
                 }
-                if(pet instanceof Dog) {
+                if (pet instanceof Dog) {
                     Dog dog = createDog();
                     dog.setPetId(pet.getPetId());
                     storage.set(i, dog);
                 }
-                if(pet instanceof Horse) {
+                if (pet instanceof Horse) {
                     Horse horse = createHorse();
                     horse.setPetId(pet.getPetId());
                     storage.set(i, horse);
+                }
+                if (pet instanceof Rabbit) {
+                    Rabbit rabbit = createRabbit();
+                    rabbit.setPetId(pet.getPetId());
+                    storage.set(i, rabbit);
                 }
                 return updatedId;
             }
@@ -96,10 +105,21 @@ public class OperationInterface implements IOperationInterface {
         this.scanner = scanner;
     }
 
+    @Override
+    public void search(String name) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getName().equals(name)) {
+                System.out.println(storage.get(i));
+            }
+        }
+    }
+
     private Cat createCat() {
         Cat cat = new Cat(addPet());
         System.out.println(HAIR);
         cat.setHair(scanner.nextLine());
+        System.out.println(CAT_BREED);
+        cat.setBreed(Cat.Breed.valueOf(Cat.Breed.class, scanner.nextLine().toUpperCase().replace(" ", "_")));
         return cat;
     }
 
@@ -107,6 +127,8 @@ public class OperationInterface implements IOperationInterface {
         Horse horse = new Horse(addPet());
         System.out.println(HORSESHOE);
         horse.setHorseshoe(scanner.nextLine());
+        System.out.println(BREED);
+        horse.setBreed(scanner.nextLine());
         return horse;
     }
 
@@ -114,6 +136,21 @@ public class OperationInterface implements IOperationInterface {
         Dog dog = new Dog(addPet());
         System.out.println(TAIL);
         dog.setTail(scanner.nextLine());
+        System.out.println(BREED);
+        dog.setBreed(scanner.nextLine());
         return dog;
+    }
+
+    private Rabbit createRabbit() {
+        Rabbit rabbit = new Rabbit(addPet());
+        System.out.println(TYPE_OF_EARS);
+        rabbit.setTypeOfEars(scanner.nextLine());
+        System.out.println(BREED);
+        rabbit.setBreed(scanner.nextLine());
+        return rabbit;
+    }
+
+    private static void list(ArrayList<Pet> storage) {
+        Collections.sort(storage, Comparator.comparing(Pet::getName).thenComparing(Pet::getAge).thenComparing(Pet::getPetId));
     }
 }
