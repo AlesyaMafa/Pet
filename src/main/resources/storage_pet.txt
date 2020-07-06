@@ -1,0 +1,2 @@
+cat|87f1ed39-06de-4abc-9904-96961214d3e3|d|bengal|2|d|hh
+dog|dfd26932-d43e-47cb-8d86-9cd123c83083|d|s|2|s|s

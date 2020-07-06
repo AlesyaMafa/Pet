@@ -24,4 +24,5 @@ public interface IOperationInterface {
 
     public void search(String name);
 
+    public void save();
 }
