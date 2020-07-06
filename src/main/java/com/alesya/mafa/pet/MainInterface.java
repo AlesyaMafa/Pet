@@ -7,7 +7,7 @@ public class MainInterface implements IMainInterface {
 
     private final static String INCORRECT_VALUE = "Incorrect value, try again";
     private final static String INPUT_PET = "Input type of pet: cat, dog, horse or rabbit";
-    private final static String INPUT_APP = "Type 'add' to add new pet\nType 'update' to update existing pet\nType 'delete' to delete existing pet\nType 'list' to view all pets\nType 'search' to find pet\nType 'exit' to stop app";
+    private final static String INPUT_APP = "Type 'add' to add new pet\nType 'update' to update existing pet\nType 'delete' to delete existing pet\nType 'list' to view all pets\nType 'search' to find pet\nType 'save' to save all changes\nType 'exit' to stop app";
     private final static String UPDATE_PET = "To update pet type ID\nIf you don't remember ID, type list";
     private final static String DELETE_PET = "To delete pet type ID\nIf you don't remember ID, type list";
     private final static String DELETE_PET_BY_ID = "To delete pet type ID";
@@ -40,6 +40,9 @@ public class MainInterface implements IMainInterface {
                     break;
                 case "search":
                     search();
+                    break;
+                case "save":
+                    operationInterface.save();
                     break;
                 default:
                     System.out.println(INCORRECT_VALUE);

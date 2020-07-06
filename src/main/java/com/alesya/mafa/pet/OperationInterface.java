@@ -14,8 +14,14 @@ public class OperationInterface implements IOperationInterface {
     private final static String TAIL = "Input tail: ";
     private final static String TYPE_OF_EARS = "Input type of ears: ";
 
+    private ResourceService resourceService = new ResourceService();
+    private PetResource petResources = resourceService.loadResources();
     private ArrayList<Pet> storage = new ArrayList<>();
     private Scanner scanner;
+
+    {
+        storage.addAll(petResources.getPets());
+    }
 
     @Override
     public Pet addPet() {
@@ -112,6 +118,11 @@ public class OperationInterface implements IOperationInterface {
                 System.out.println(storage.get(i));
             }
         }
+    }
+
+    @Override
+    public void save() {
+        resourceService.uploadResources(storage);
     }
 
     private Cat createCat() {
